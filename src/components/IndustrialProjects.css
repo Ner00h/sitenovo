@@ -1,0 +1,198 @@
+.industrial {
+    position: relative;
+    z-index: 2;
+    padding: var(--section-pad) 0;
+}
+
+.industrial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* ─── Project Card ─────────────────────────────────────────── */
+.project-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background: #0a0a14;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+    cursor: none;
+    /* Fixed height so image can fill it */
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+}
+
+/* ─── Background photo ─────────────────────────────────────── */
+.project-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+    z-index: 0;
+    transform: scale(1.03);
+}
+
+.project-card:hover .project-card-bg {
+    opacity: 0.22;
+    transform: scale(1.08);
+}
+
+/* Children above bg */
+.project-card > *:not(.project-card-bg):not(.project-card-glow) {
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── Glow border ──────────────────────────────────────────── */
+.project-card-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius-lg);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.project-card--blue .project-card-glow {
+    box-shadow: 0 0 0 1px rgba(0, 200, 255, 0.35), 0 0 32px rgba(0, 200, 255, 0.08);
+}
+
+.project-card--purple .project-card-glow {
+    box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.35), 0 0 32px rgba(124, 58, 237, 0.08);
+}
+
+.project-card--gold .project-card-glow {
+    box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.35), 0 0 32px rgba(245, 158, 11, 0.08);
+}
+
+.project-card.hovered .project-card-glow {
+    opacity: 1;
+}
+
+/* ─── Top-left chip strip ──────────────────────────────────── */
+.project-card-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px;
+}
+
+.project-icon {
+    font-size: 1rem;
+    line-height: 1;
+    filter: grayscale(10%);
+}
+
+/* ─── Bottom footer ────────────────────────────────────────── */
+.project-card-footer {
+    /* Gradient fade from transparent → dark so text is readable */
+    background: linear-gradient(to top, rgba(4, 4, 12, 0.95) 70%, transparent);
+    padding: 20px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.project-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* ─── Tag chips ────────────────────────────────────────────── */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag-chip--sm {
+    font-size: 0.65rem !important;
+    padding: 2px 7px !important;
+    opacity: 0.75;
+}
+
+/* ─── Hover reveal block (desc + metrics) ─────────────────── */
+.project-hover-reveal {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.45s ease, opacity 0.35s ease;
+}
+
+.project-card:hover .project-hover-reveal {
+    max-height: 160px;
+    opacity: 1;
+}
+
+.project-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ─── Metrics ──────────────────────────────────────────────── */
+.project-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.project-metric {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.04em;
+}
+
+.project-metric-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+}
+
+.project-card--blue .project-metric-dot  { background: #00c8ff; }
+.project-card--purple .project-metric-dot { background: #a78bfa; }
+.project-card--gold .project-metric-dot   { background: #f59e0b; }
+
+/* ─── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .industrial-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .industrial-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card {
+        height: 280px;
+    }
+}

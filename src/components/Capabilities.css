@@ -1,0 +1,109 @@
+.capabilities {
+    position: relative;
+    z-index: 2;
+    padding: var(--section-pad) 0;
+}
+
+.capabilities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.capability-card {
+    padding: 32px 28px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.capability-card:hover {
+    transform: translateY(-6px) scale(1.01);
+}
+
+.capability-card--blue:hover {
+    background: rgba(0, 200, 255, 0.05);
+    border-color: rgba(0, 200, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 200, 255, 0.08);
+}
+
+.capability-card--purple:hover {
+    background: rgba(124, 58, 237, 0.05);
+    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.08);
+}
+
+.capability-card--gold:hover {
+    background: rgba(245, 158, 11, 0.05);
+    border-color: rgba(245, 158, 11, 0.2);
+    box-shadow: 0 20px 60px rgba(245, 158, 11, 0.08);
+}
+
+.capability-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.capability-card--blue .capability-icon {
+    background: rgba(0, 200, 255, 0.08);
+    border: 1px solid rgba(0, 200, 255, 0.15);
+    color: #00c8ff;
+}
+
+.capability-card--purple .capability-icon {
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    color: #a78bfa;
+}
+
+.capability-card--gold .capability-icon {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.capability-card:hover .capability-icon {
+    transform: scale(1.1) rotate(-4deg);
+}
+
+.capability-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+}
+
+.capability-card p {
+    font-size: 0.87rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.65;
+    flex: 1;
+}
+
+.capability-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+@media (max-width: 1100px) {
+    .capabilities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .capabilities-grid {
+        grid-template-columns: 1fr;
+    }
+}

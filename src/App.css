@@ -1,0 +1,11 @@
+/* App layout wrapper */
+.app-layout {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
