@@ -1,5 +1,4 @@
 import CosmicBackground from './components/CosmicBackground';
-import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,9 +12,6 @@ import './App.css';
 function App() {
   return (
     <>
-      {/* Interactive cursor */}
-      <Cursor />
-
       {/* Three.js cosmic background - fixed */}
       <CosmicBackground />
 

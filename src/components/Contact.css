@@ -160,7 +160,6 @@
     outline: none;
     transition: all 0.3s ease;
     resize: vertical;
-    cursor: none;
 }
 
 .form-group input::placeholder,

@@ -19,7 +19,6 @@
     background: #0a0a14;
     border: 1px solid rgba(255, 255, 255, 0.07);
     overflow: hidden;
-    cursor: none;
     height: 480px; /* Fixed height for consistency */
     display: flex;
     flex-direction: column;
@@ -45,8 +44,86 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.85; /* Sits nicely in dark theme */
+    opacity: 0.95;
     transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.printer-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Video Placeholder */
+.printer-video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: radial-gradient(circle at 50% 38%, rgba(20, 24, 38, 0.7) 0%, rgba(4, 4, 12, 0.95) 75%);
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.4s ease;
+}
+
+.printer-card:hover .printer-video-placeholder {
+    transform: scale(1.03);
+}
+
+.video-play-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 4px;
+}
+
+.video-play-btn--blue {
+    color: #00c8ff;
+    border-color: rgba(0, 200, 255, 0.35);
+    box-shadow: 0 0 24px rgba(0, 200, 255, 0.15);
+}
+
+.video-play-btn--purple {
+    color: #a78bfa;
+    border-color: rgba(167, 139, 250, 0.35);
+    box-shadow: 0 0 24px rgba(167, 139, 250, 0.15);
+}
+
+.video-play-btn--gold {
+    color: #f59e0b;
+    border-color: rgba(245, 158, 11, 0.35);
+    box-shadow: 0 0 24px rgba(245, 158, 11, 0.15);
+}
+
+.printer-card:hover .video-play-btn {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.video-placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.video-placeholder-sub {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 /* YouTube Covering Hack */
@@ -60,23 +137,27 @@
     pointer-events: none;
 }
 
-.printer-card:hover .printer-video,
-.printer-card:hover .printer-placeholder {
-    opacity: 0.35; /* Dims when hovering to highlight text */
+.printer-card:hover .printer-video {
+    opacity: 0.35;
     transform: scale(1.05);
+}
+
+.printer-card:hover .printer-placeholder {
+    opacity: 0.55;
+    transform: scale(1.03);
 }
 
 /* ── Dark overlay for text readability ── */
 .printer-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(4, 4, 12, 0.95) 20%, rgba(4, 4, 12, 0.4) 60%, transparent);
+    background: linear-gradient(to top, rgba(4, 4, 12, 0.96) 26%, rgba(4, 4, 12, 0.45) 65%, rgba(4, 4, 12, 0.15) 100%);
     z-index: 1;
     transition: opacity 0.4s ease;
 }
 
 .printer-card:hover .printer-card-overlay {
-    background: linear-gradient(to top, rgba(4, 4, 12, 1) 40%, rgba(4, 4, 12, 0.8) 100%);
+    background: linear-gradient(to top, rgba(4, 4, 12, 0.98) 32%, rgba(4, 4, 12, 0.7) 75%, rgba(4, 4, 12, 0.35) 100%);
 }
 
 /* ── Content Layer ── */
@@ -222,8 +303,23 @@
 /* Visual/SVG adjustments as background */
 /* ──────────────────────────────────────────────────────────── */
 .printer-visual {
-    width: 60%; /* Smaller than before to fit better as bg */
-    opacity: 0.6;
+    width: 100%;
+    max-width: 440px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 12px;
+    transform: translateY(-25px);
+}
+
+.printer-svg {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    overflow: visible;
+    filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.6));
 }
 
 /* Video Notice */

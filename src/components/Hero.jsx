@@ -38,11 +38,26 @@ function AnimatedStat({ value, suffix, label }) {
     );
 }
 
+const PRINT_MODELS = [
+    { id: 'ipr1', color: 'blue', name: 'Engrenagem Planetária', machine: 'FDM CoreXY' },
+    { id: 'pr2', color: 'purple', name: 'Bocal Aerodinâmico', machine: 'FDM High-Temp' },
+    { id: 'pr3', color: 'gold', name: 'Grip Auxético Bio', machine: 'Resina UV SLA' },
+];
+
 export default function Hero() {
     const [wordIdx, setWordIdx] = useState(0);
     const [fading, setFading] = useState(false);
+    const [modelIdx, setModelIdx] = useState(0);
     const mouseRef = useRef({ x: 0, y: 0 });
     const printerRef = useRef(null);
+
+    // Auto-cycle through the 3 models every 6 seconds (exact print cycle duration)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setModelIdx(i => (i + 1) % PRINT_MODELS.length);
+        }, 6000);
+        return () => clearInterval(interval);
+    }, []);
 
     // Rotating words
     useEffect(() => {
@@ -70,12 +85,34 @@ export default function Hero() {
         return () => window.removeEventListener('mousemove', onMove);
     }, []);
 
+    const activeModel = PRINT_MODELS[modelIdx];
+
     return (
         <section className="hero" id="hero">
             {/* Floating printer & Stats */}
             <div className="hero-printer-wrap">
                 <div ref={printerRef} className="hero-printer">
-                    <PrinterVisual color="blue" />
+                    <PrinterVisual
+                        key={activeModel.id}
+                        color={activeModel.color}
+                        printer={activeModel}
+                    />
+                </div>
+
+                {/* Model switcher pills */}
+                <div className="hero-model-switcher">
+                    {PRINT_MODELS.map((model, idx) => (
+                        <button
+                            key={model.id}
+                            type="button"
+                            className={`hero-model-pill ${modelIdx === idx ? 'active' : ''} pill--${model.color}`}
+                            onClick={() => setModelIdx(idx)}
+                            title={`Alternar para ${model.name}`}
+                        >
+                            <span className="pill-dot" />
+                            <span className="pill-name">{model.name}</span>
+                        </button>
+                    ))}
                 </div>
 
                 {/* Stats bar */}

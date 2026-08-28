@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import SectionReveal from './SectionReveal';
 import './IndustrialProjects.css';
 
@@ -67,9 +67,95 @@ const PROJECTS = [
         metrics: ['Acabamento Suave', 'Alta Resolução', 'Formato Livre'],
         color: 'gold',
         icon: '🎨',
-        image: '/projects/prototipo_organico.png',
+        images: ['/projects/prototipo_organico.png', '/projects/prototipo_organico_2.png'],
     },
 ];
+
+function ProjectCard({ proj, isHovered, onHover, onLeave }) {
+    const imgList = proj.images || (proj.image ? [proj.image] : []);
+    const [activeImgIndex, setActiveImgIndex] = useState(0);
+
+    useEffect(() => {
+        if (imgList.length <= 1) return;
+        const interval = setInterval(() => {
+            setActiveImgIndex(prev => (prev + 1) % imgList.length);
+        }, 3800);
+        return () => clearInterval(interval);
+    }, [imgList.length]);
+
+    return (
+        <div
+            className={`project-card project-card--${proj.color} ${isHovered ? 'hovered' : ''}`}
+            onMouseEnter={onHover}
+            onMouseLeave={onLeave}
+            data-cursor
+        >
+            {/* Background images with cross-fade */}
+            {imgList.map((img, idx) => (
+                <div
+                    key={img}
+                    className={`project-card-bg ${idx === activeImgIndex ? 'is-active' : ''}`}
+                    style={{ backgroundImage: `url(${img})` }}
+                />
+            ))}
+
+            {/* Top chip strip & indicators if multiple images */}
+            <div className="project-card-top">
+                <div className="project-card-top-left">
+                    <span className="project-icon">{proj.icon}</span>
+                    <span className={`tag-chip ${proj.color === 'purple' ? 'purple' : proj.color === 'gold' ? 'gold' : ''}`}>
+                        {proj.category}
+                    </span>
+                </div>
+
+                {imgList.length > 1 && (
+                    <div className="project-card-dots">
+                        {imgList.map((_, idx) => (
+                            <span
+                                key={idx}
+                                className={`project-card-dot ${idx === activeImgIndex ? 'active' : ''}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveImgIndex(idx);
+                                }}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* Bottom footer strip — always visible */}
+            <div className="project-card-footer">
+                <h3 className="project-title">{proj.title}</h3>
+
+                {/* Tags: small pills */}
+                <div className="project-tags">
+                    {proj.tags.map(t => (
+                        <span key={t} className={`tag-chip tag-chip--sm ${proj.color === 'purple' ? 'purple' : proj.color === 'gold' ? 'gold' : ''}`}>
+                            {t}
+                        </span>
+                    ))}
+                </div>
+
+                {/* Hover reveal: description + metrics */}
+                <div className="project-hover-reveal">
+                    <p className="project-desc">{proj.description}</p>
+                    <div className="project-metrics">
+                        {proj.metrics.map(m => (
+                            <div key={m} className="project-metric">
+                                <span className="project-metric-dot" />
+                                {m}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Glow border */}
+            <div className="project-card-glow" />
+        </div>
+    );
+}
 
 export default function IndustrialProjects() {
     const [hoveredId, setHoveredId] = useState(null);
@@ -90,58 +176,12 @@ export default function IndustrialProjects() {
                 <div className="industrial-grid">
                     {PROJECTS.map((proj, i) => (
                         <SectionReveal key={proj.id} delay={i * 80}>
-                            <div
-                                className={`project-card project-card--${proj.color} ${hoveredId === proj.id ? 'hovered' : ''}`}
-                                onMouseEnter={() => setHoveredId(proj.id)}
-                                onMouseLeave={() => setHoveredId(null)}
-                                data-cursor
-                            >
-                                {/* Background image */}
-                                {proj.image && (
-                                    <div
-                                        className="project-card-bg"
-                                        style={{ backgroundImage: `url(${proj.image})` }}
-                                    />
-                                )}
-
-                                {/* Top-left corner: small icon + category chip */}
-                                <div className="project-card-top">
-                                    <span className="project-icon">{proj.icon}</span>
-                                    <span className={`tag-chip ${proj.color === 'purple' ? 'purple' : proj.color === 'gold' ? 'gold' : ''}`}>
-                                        {proj.category}
-                                    </span>
-                                </div>
-
-                                {/* Bottom footer strip — always visible */}
-                                <div className="project-card-footer">
-                                    <h3 className="project-title">{proj.title}</h3>
-
-                                    {/* Tags: small pills */}
-                                    <div className="project-tags">
-                                        {proj.tags.map(t => (
-                                            <span key={t} className={`tag-chip tag-chip--sm ${proj.color === 'purple' ? 'purple' : proj.color === 'gold' ? 'gold' : ''}`}>
-                                                {t}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    {/* Hover reveal: description + metrics */}
-                                    <div className="project-hover-reveal">
-                                        <p className="project-desc">{proj.description}</p>
-                                        <div className="project-metrics">
-                                            {proj.metrics.map(m => (
-                                                <div key={m} className="project-metric">
-                                                    <span className="project-metric-dot" />
-                                                    {m}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Glow border */}
-                                <div className="project-card-glow" />
-                            </div>
+                            <ProjectCard
+                                proj={proj}
+                                isHovered={hoveredId === proj.id}
+                                onHover={() => setHoveredId(proj.id)}
+                                onLeave={() => setHoveredId(null)}
+                            />
                         </SectionReveal>
                     ))}
                 </div>
