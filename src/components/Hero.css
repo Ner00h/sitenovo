@@ -128,8 +128,6 @@
     position: relative;
     width: 360px;
     height: 360px;
-    transition: transform 0.1s linear;
-    will-change: transform;
     display: flex;
     align-items: center;
     justify-content: center;

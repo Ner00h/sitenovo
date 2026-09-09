@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SectionReveal from './SectionReveal';
 import { PrinterVisual } from './PrinterProjects';
 import './Hero.css';
@@ -48,8 +48,6 @@ export default function Hero() {
     const [wordIdx, setWordIdx] = useState(0);
     const [fading, setFading] = useState(false);
     const [modelIdx, setModelIdx] = useState(0);
-    const mouseRef = useRef({ x: 0, y: 0 });
-    const printerRef = useRef(null);
 
     // Auto-cycle through the 3 models every 6 seconds (exact print cycle duration)
     useEffect(() => {
@@ -71,27 +69,13 @@ export default function Hero() {
         return () => clearInterval(interval);
     }, []);
 
-    // Mouse parallax
-    useEffect(() => {
-        const onMove = (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 2;
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
-            mouseRef.current = { x, y };
-            if (printerRef.current) {
-                printerRef.current.style.transform = `translate(${x * -20}px, ${y * -15}px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
-            }
-        };
-        window.addEventListener('mousemove', onMove);
-        return () => window.removeEventListener('mousemove', onMove);
-    }, []);
-
     const activeModel = PRINT_MODELS[modelIdx];
 
     return (
         <section className="hero" id="hero">
             {/* Floating printer & Stats */}
             <div className="hero-printer-wrap">
-                <div ref={printerRef} className="hero-printer">
+                <div className="hero-printer">
                     <PrinterVisual
                         key={activeModel.id}
                         color={activeModel.color}

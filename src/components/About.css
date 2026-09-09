@@ -1,141 +1,510 @@
+/* ===========================
+   NEROOH — About Section
+   Header Above Video & Right-Aligned Step Menu
+   =========================== */
+
 .about {
     position: relative;
     z-index: 2;
-    padding: var(--section-pad) 0;
-    background: linear-gradient(180deg, transparent, rgba(10, 22, 40, 0.5) 30%, rgba(10, 22, 40, 0.5) 70%, transparent);
-}
-
-.about-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-bottom: 64px;
-}
-
-.about-card {
-    position: relative;
-    padding: 36px 32px;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
+    padding: 16px 0 clamp(30px, 5vw, 60px);
+    background: transparent; /* Allows Three.js cosmic canvas to remain fully visible */
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.about-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255, 255, 255, 0.15);
+/* ====== Header Section (Close to top divider line & compact) ====== */
+.about-top-header {
+    position: relative;
+    z-index: 3;
+    margin-bottom: 16px;
+    text-align: center;
 }
 
-.about-card--blue:hover {
-    background: rgba(0, 200, 255, 0.05);
-    box-shadow: 0 20px 60px rgba(0, 200, 255, 0.1);
+.about-top-header .section-header {
+    max-width: 820px;
+    margin: 0 auto;
+    margin-bottom: 0 !important; /* Overrides index.css 64px */
 }
 
-.about-card--purple:hover {
-    background: rgba(124, 58, 237, 0.05);
-    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.1);
+.about-top-header .section-header .label-tag {
+    display: inline-block;
+    margin-bottom: 4px;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
 }
 
-.about-card--gold:hover {
-    background: rgba(245, 158, 11, 0.05);
-    box-shadow: 0 20px 60px rgba(245, 158, 11, 0.1);
+.about-top-header .section-header h2 {
+    font-size: clamp(1.65rem, 2.6vw, 2.25rem);
+    margin-bottom: 6px;
+    line-height: 1.15;
 }
 
-.about-card-icon {
-    width: 56px;
-    height: 56px;
+.about-intro-text {
+    font-size: clamp(0.88rem, 1.05vw, 0.96rem);
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.5;
+    max-width: 680px;
+    margin: 4px auto 0;
+    font-weight: 350;
+}
+
+/* ====== Video Stage (Wide Open Viewport) ====== */
+.about-video-stage {
+    position: relative;
+    min-height: 560px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    /* Soft vertical mask so video dissolves into the cosmic starry void */
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.8) 8%,
+        black 16%,
+        black 84%,
+        rgba(0, 0, 0, 0.8) 92%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.8) 8%,
+        black 16%,
+        black 84%,
+        rgba(0, 0, 0, 0.8) 92%,
+        transparent 100%
+    );
+}
+
+/* Video Backdrop */
+.about-video-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-video-iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100%;
+    min-width: 177.78vh;
+    transform: translate(-50%, -50%) scale(1.15);
+    pointer-events: none;
+    border: none;
+    opacity: 0.82; /* Very vivid, crisp and clearly visible! */
+    filter: saturate(1.18) contrast(1.08) brightness(0.92);
+}
+
+.about-video-ambient-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 95% 85% at 45% 50%,
+        transparent 35%,
+        rgba(2, 4, 8, 0.35) 80%,
+        rgba(2, 4, 8, 0.65) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ====== Stage Container (Aligns Panel to the Right) ====== */
+.about-stage-container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    justify-content: flex-end; /* Keeps video on the left/center unobstructed */
+    align-items: center;
+    padding: 24px 0;
+}
+
+/* ====== Right-Aligned Step Menu (Um abaixo do outro) ====== */
+.about-right-panel {
+    width: 370px;
+    max-width: 100%;
+    background: rgba(6, 13, 24, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 22px 20px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    z-index: 10;
+}
+
+.about-right-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.right-panel-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+}
+
+.right-panel-hint {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    color: #00e5ff;
+    letter-spacing: 0.06em;
+    opacity: 0.9;
+}
+
+.about-steps-vertical-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Step Item Button */
+.about-step-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 15px;
     border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-step-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateX(-4px);
+}
+
+.step-item-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
-    transition: transform 0.3s ease;
-}
-
-.about-card--blue .about-card-icon {
-    background: rgba(0, 200, 255, 0.1);
-    border: 1px solid rgba(0, 200, 255, 0.2);
-    color: #00c8ff;
-}
-
-.about-card--purple .about-card-icon {
-    background: rgba(124, 58, 237, 0.1);
-    border: 1px solid rgba(124, 58, 237, 0.2);
-    color: #a78bfa;
-}
-
-.about-card--gold .about-card-icon {
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.2);
-    color: #f59e0b;
-}
-
-.about-card:hover .about-card-icon {
-    transform: scale(1.1) rotate(-5deg);
-}
-
-.about-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
     font-weight: 700;
-    margin-bottom: 12px;
-    color: white;
+    color: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+    transition: all 0.25s ease;
 }
 
-.about-card p {
-    font-size: 0.92rem;
+.step-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.step-item-badge {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 2px;
+}
+
+.step-item-title {
+    font-family: var(--font-display);
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 2px;
+}
+
+.step-item-sub {
+    display: block;
+    font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.55);
-    line-height: 1.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Shimmer */
-.about-card-shimmer {
+.step-item-arrow {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.25s ease;
+}
+
+/* Active State for Step Items */
+.about-step-item.is-active {
+    background: rgba(10, 22, 42, 0.92);
+    transform: translateX(-6px);
+}
+
+.about-step-item--blue.is-active {
+    border-color: rgba(0, 200, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.18);
+}
+
+.about-step-item--purple.is-active {
+    border-color: rgba(124, 58, 237, 0.5);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.18);
+}
+
+.about-step-item--gold.is-active {
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.18);
+}
+
+.about-step-item--blue.is-active .step-item-number,
+.about-step-item--blue.is-active .step-item-arrow {
+    color: #00e5ff;
+    background: rgba(0, 200, 255, 0.15);
+}
+
+.about-step-item--purple.is-active .step-item-number,
+.about-step-item--purple.is-active .step-item-arrow {
+    color: #c084fc;
+    background: rgba(124, 58, 237, 0.15);
+}
+
+.about-step-item--gold.is-active .step-item-number,
+.about-step-item--gold.is-active .step-item-arrow {
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.15);
+}
+
+/* ====== Pop-up Card (Popover alongside the right menu) ====== */
+.about-step-popover {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
-    transition: left 0.6s ease;
+    right: 400px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 440px;
+    max-width: calc(100% - 410px);
+    background: rgba(6, 13, 24, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 28px 26px;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+    z-index: 20;
+    animation: popoverSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.about-card:hover .about-card-shimmer {
-    left: 150%;
+@keyframes popoverSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(16px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0) scale(1);
+    }
 }
 
-/* Quote */
-.about-quote {
+.about-step-popover--blue {
+    border-color: rgba(0, 200, 255, 0.4);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 200, 255, 0.15);
+}
+
+.about-step-popover--purple {
+    border-color: rgba(124, 58, 237, 0.4);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(124, 58, 237, 0.15);
+}
+
+.about-step-popover--gold {
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(245, 158, 11, 0.15);
+}
+
+.popover-header {
     display: flex;
     align-items: center;
-    gap: 32px;
+    justify-content: space-between;
+    margin-bottom: 14px;
 }
 
-.about-quote-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.3));
+.popover-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.88);
 }
 
-.about-quote-line:last-child {
-    background: linear-gradient(90deg, rgba(0, 200, 255, 0.3), transparent);
+.popover-close-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.65);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.15rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
-.about-quote-text {
+.popover-close-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.about-step-popover h3 {
     font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.5);
-    white-space: nowrap;
-    font-weight: 300;
-    letter-spacing: 0.02em;
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
 }
 
-@media (max-width: 768px) {
-    .about-quote-text {
-        font-size: 0.85rem;
-        white-space: normal;
-        text-align: center;
+.popover-subtitle {
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 14px;
+    font-style: italic;
+}
+
+.popover-summary {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    font-weight: 350;
+}
+
+.popover-points-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.popover-points-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.84);
+    line-height: 1.5;
+}
+
+.popover-check {
+    color: #00e5ff;
+    font-weight: bold;
+    font-size: 0.78rem;
+    margin-top: 2px;
+}
+
+.popover-quote-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    margin-top: 12px;
+}
+
+.popover-quote-bar {
+    width: 3px;
+    height: 28px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, #00c8ff, #7c3aed);
+}
+
+.popover-quote-phrase {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+}
+
+.popover-footer-tip {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    margin-top: 14px;
+    text-align: right;
+}
+
+/* ====== Responsive Breakpoints ====== */
+@media (max-width: 960px) {
+    .about-stage-container {
+        flex-direction: column-reverse;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .about-right-panel {
+        width: 100%;
+        max-width: 480px;
+    }
+
+    .about-step-popover {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 480px;
+        margin-bottom: 16px;
+    }
+
+    @keyframes popoverSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .about-video-stage {
+        min-height: 480px;
+    }
+
+    .about-right-panel {
+        padding: 18px 16px;
+    }
+
+    .about-step-popover {
+        padding: 22px 18px;
+    }
+
+    .about-step-popover h3 {
+        font-size: 1.15rem;
     }
 }
